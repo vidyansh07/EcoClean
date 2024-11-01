@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Garbage Collection Report Completed</title>
+</head>
+<body>
+    <h2>Hello {{ report.user.first_name }}!</h2>
+    <p>We're pleased to inform you that your garbage collection report has been completed.</p>
+    <p><strong>Location:</strong> {{ report.address|default:report.city }}</p>
+    <p><strong>Date Reported:</strong> {{ report.created_at|date:"M d, Y" }}</p>
+    <p>Thank you for helping keep our city clean!</p>
+</body>
+</html>

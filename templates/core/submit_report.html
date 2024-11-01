@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Submit Garbage Report</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" id="reportForm">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="image-preview" class="form-label">Image Preview</label>
+                            <div class="position-relative">
+                                <img id="image-preview" src="#" alt="Preview" style="max-width: 100%; display: none;" class="mb-2 rounded">
+                                <input type="file" name="image" accept="image/*" class="form-control" required onchange="previewImage(this);">
+                            </div>
+                        </div>
+                        
+                        {{ form.description|as_crispy_field }}
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Location</label>
+                            <div id="map" style="height: 300px;" class="mb-2 rounded"></div>
+                            <button type="button" class="btn btn-secondary btn-sm mb-2" onclick="getCurrentLocation()">
+                                Use My Current Location
+                            </button>
+                            <input type="hidden" name="latitude" id="latitude" required>
+                            <input type="hidden" name="longitude" id="longitude" required>
+                        </div>
+                        
+                        {{ form.address|as_crispy_field }}
+                        {{ form.city|as_crispy_field }}
+                        
+                        <button type="submit" class="btn btn-primary">Submit Report</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-OaXa_GopW-98HKKUOZE7vtMwoJmYWPI&libraries=places"></script>
+<script>
+let map, marker;
+
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 13,
+        center: { lat: -34.397, lng: 150.644 }
+    });
+    
+    map.addListener('click', function(e) {
+        placeMarker(e.latLng);
+        updateCoordinates(e.latLng);
+    });
+}
+
+function placeMarker(location) {
+    if (marker) {
+        marker.setPosition(location);
+    } else {
+        marker = new google.maps.Marker({
+            position: location,
+            map: map,
+            draggable: true
+        });
+        
+        marker.addListener('dragend', function() {
+            updateCoordinates(marker.getPosition());
+        });
+    }
+}
+
+function updateCoordinates(location) {
+    document.getElementById('latitude').value = location.lat();
+    document.getElementById('longitude').value = location.lng();
+    
+    // Get address from coordinates
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ location: location }, (results, status) => {
+        if (status === 'OK') {
+            if (results[0]) {
+                document.getElementById('id_address').value = results[0].formatted_address;
+                // Extract city from address components
+                for (const component of results[0].address_components) {
+                    if (component.types.includes('locality')) {
+                        document.getElementById('id_city').value = component.long_name;
+                        break;
+                    }
+                }
+            }
+        }
+    });
+}
+
+function getCurrentLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const location = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                map.setCenter(location);
+                placeMarker(location);
+                updateCoordinates(new google.maps.LatLng(location.lat, location.lng));
+            },
+            () => {
+                alert('Error: The Geolocation service failed.');
+            }
+        );
+    } else {
+        alert('Error: Your browser doesn\'t support geolocation.');
+    }
+}
+
+function previewImage(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById('image-preview');
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+initMap();
+</script>
+{% endblock %}
+{% endblock %}

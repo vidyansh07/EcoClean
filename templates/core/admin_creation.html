@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Admin Account Credentials</title>
+</head>
+<body>
+    <h2>Hello {{ admin.user.first_name }}!</h2>
+    <p>Your garbage collection admin account has been created. Here are your login credentials:</p>
+    <p>Username: {{ admin.user.email }}</p>
+    <p>Password: {{ password }}</p>
+    <p>Please change your password after your first login.</p>
+</body>
+</html>

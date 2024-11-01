@@ -1,0 +1,288 @@
+{% extends "base.html" %} {% load static %} {% block title %}Smart Garbage
+Collection - Clean Up with Ease{% endblock %} {% block content %}
+<!-- Hero Section with Enhanced Style and Animations -->
+<section
+  class="hero-section d-flex align-items-center text-center text-light position-relative"
+  style="
+    background: linear-gradient(rgba(0, 100, 0, 0.6), rgba(0, 100, 0, 0.6)),
+      url('{% static 'img/bg.jpg' %}') center/cover no-repeat;
+    height: 80vh;
+    overflow: hidden;
+  "
+>
+  <!-- Floating Decorative Icons -->
+  <div class="icon icon1"></div>
+  <div class="icon icon2"></div>
+  <div class="icon icon3"></div>
+
+  <div class="container py-5">
+    <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">
+      Smart Garbage Collection
+    </h1>
+    <p class="lead animate__animated animate__fadeInUp">
+      Join us in keeping our community clean, green, and waste-free!
+    </p>
+    <a
+      href="{% url 'register' %}"
+      class="btn btn-success btn-lg animate__animated animate__zoomIn mt-3 shadow-lg"
+      >Get Started</a
+    >
+  </div>
+</section>
+
+<style>
+  /* Enhanced Hero Section Styles */
+  .hero-section {
+    position: relative;
+  }
+
+  /* Floating Decorative Icons */
+  .icon {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+  }
+  .icon1 {
+    top: 10%;
+    left: 20%;
+    animation-delay: 0s;
+  }
+  .icon2 {
+    top: 50%;
+    left: 80%;
+    animation-delay: 2s;
+  }
+  .icon3 {
+    top: 75%;
+    left: 30%;
+    animation-delay: 4s;
+  }
+
+  /* Animation for Floating Icons */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  /* Hero Content Animation */
+  .animate__fadeInDown {
+    animation: fadeInDown 1.2s ease-out;
+  }
+  .animate__fadeInUp {
+    animation: fadeInUp 1.5s ease-out;
+  }
+  .animate__zoomIn {
+    animation: zoomIn 1.8s ease-out;
+  }
+
+  /* Custom Keyframes for Animations */
+  @keyframes fadeInDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes zoomIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+</style>
+
+<!-- Features Section with Icons and Animations -->
+<section class="features py-5">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-4 mb-4">
+        <div class="feature-card animate__animated animate__zoomIn">
+          <i class="fas fa-trash-alt fa-3x text-success mb-3"></i>
+          <h5>Easy Pickup Requests</h5>
+          <p>Request garbage pickups anytime, anywhere.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="feature-card animate__animated animate__zoomIn">
+          <i class="fas fa-recycle fa-3x text-success mb-3"></i>
+          <h5>Eco-Friendly Solutions</h5>
+          <p>Our services promote recycling and sustainability.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="feature-card animate__animated animate__zoomIn">
+          <i class="fas fa-map-marker-alt fa-3x text-success mb-3"></i>
+          <h5>Track Pickup Status</h5>
+          <p>Stay updated on your garbage collection requests in real time.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% comment %}
+<!-- Image Slider Section -->
+<section class="slider-section py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-4">Our Impact in the Community</h2>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img
+            src="{% static 'images/garbage-impact1.jpg' %}"
+            class="img-fluid"
+            alt="Impact Image 1"
+          />
+        </div>
+        <div class="swiper-slide">
+          <img
+            src="{% static 'images/garbage-impact2.jpg' %}"
+            class="img-fluid"
+            alt="Impact Image 2"
+          />
+        </div>
+        <div class="swiper-slide">
+          <img
+            src="{% static 'images/garbage-impact3.jpg' %}"
+            class="img-fluid"
+            alt="Impact Image 3"
+          />
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </div>
+</section>
+{% endcomment %}
+
+<!-- Call-to-Action Section -->
+<section
+  class="cta-section py-5 text-center text-light"
+  style="background: #228b22"
+>
+  <div class="container">
+    <h2 class="mb-4">Make a Difference Today!</h2>
+    <p>
+      Take part in a cleaner community by utilizing our convenient and
+      eco-friendly garbage collection services.
+    </p>
+    <a href="{% url 'register' %}" class="btn btn-lg btn-outline-light"
+      >Request a Pickup</a
+    >
+  </div>
+</section>
+
+<!-- Testimonials Section with Carousel -->
+<section class="testimonials py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-5">What Our Customers Say</h2>
+    <div
+      id="testimonialsCarousel"
+      class="carousel slide"
+      data-bs-ride="carousel"
+    >
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="d-flex justify-content-center">
+            <div class="testimonial-card text-center p-4">
+              <p>
+                "This service has made it easy for us to manage our waste
+                effectively. Highly recommended!"
+              </p>
+              <h6>- Alice R.</h6>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="d-flex justify-content-center">
+            <div class="testimonial-card text-center p-4">
+              <p>
+                "Convenient and eco-friendly! Perfect for our community's
+                needs."
+              </p>
+              <h6>- Tom M.</h6>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="d-flex justify-content-center">
+            <div class="testimonial-card text-center p-4">
+              <p>
+                "We love the tracking feature – we always know when our waste
+                will be picked up!"
+              </p>
+              <h6>- Priya S.</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#testimonialsCarousel"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#testimonialsCarousel"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+{% endblock %} {% block extra_js %}
+<!-- Swiper JS for Sliders -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+  var swiper = new Swiper(".swiper-container", {
+    slidesPerView: 1,
+    spaceBetween: 30,
+    loop: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
+</script>
+{% endblock %}

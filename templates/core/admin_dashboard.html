@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Dashboard</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item active">Reports Overview</a>
+                        <a href="#" class="list-group-item d-flex justify-content-between align-items-center">
+                            Pending
+                            <span class="badge bg-primary rounded-pill">{{ pending_count }}</span>
+                        </a>
+                        <a href="#" class="list-group-item d-flex justify-content-between align-items-center">
+                            In Progress
+                            <span class="badge bg-warning rounded-pill">{{ in_progress_count }}</span>
+                        </a>
+                        <a href="#" class="list-group-item d-flex justify-content-between align-items-center">
+                            Completed
+                            <span class="badge bg-success rounded-pill">{{ completed_count }}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Latest Reports</h5>
+                </div>
+                <div class="card-body">
+                    {% if reports %}
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Location</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for report in reports %}
+                                        <tr>
+                                            <td>{{ report.created_at|date:"M d, Y" }}</td>
+                                            <td>{{ report.address|default:report.city }}</td>
+                                            <td>
+                                                <span class="badge {% if report.status == 'pending' %}bg-primary{% elif report.status == 'in_progress' %}bg-warning{% else %}bg-success{% endif %}">
+                                                    {{ report.status|title }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <a href="{% url 'report_detail' report.id %}" class="btn btn-sm btn-info">View Details</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-center">No pending reports in your area.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

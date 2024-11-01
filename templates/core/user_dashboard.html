@@ -1,0 +1,532 @@
+{% extends 'base.html' %} {% load static %} {% block extra_css %}
+<style>
+  /* Custom animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+
+  /* Custom styles */
+  .hero-section {
+    background: linear-gradient(135deg, #0062cc, #0096ff);
+    min-height: 80vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-content {
+    animation: fadeInUp 1s ease-out;
+  }
+
+  .feature-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 1s ease-out;
+    animation-fill-mode: both;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .stat-card {
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+</style>
+{% endblock %} {% block content %}
+<!-- Hero Section -->
+<style>
+  /* Hero Section Styles */
+  .hero-section {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1b5e20, #388e3c);
+  }
+
+  /* Background Image and Overlay */
+  .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('{% static "img/bg.jpg" %}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: slowZoom 30s infinite alternate;
+    filter: saturate(1.2) brightness(0.9);
+  }
+
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        circle at top right,
+        rgba(76, 175, 80, 0.9),
+        rgba(27, 94, 32, 0.95)
+      ),
+      linear-gradient(135deg, rgba(56, 142, 60, 0.85), rgba(27, 94, 32, 0.95));
+    mix-blend-mode: multiply;
+  }
+
+  /* Enhanced Floating Shapes */
+  .floating-shapes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .shape {
+    position: absolute;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.05)
+    );
+    backdrop-filter: blur(8px);
+    border-radius: 50%;
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1),
+      0 0 30px rgba(76, 175, 80, 0.1);
+  }
+
+  .shape-1 {
+    width: 300px;
+    height: 300px;
+    top: -150px;
+    right: -150px;
+    animation: floatAnimation 12s ease-in-out infinite alternate;
+    background: linear-gradient(
+      45deg,
+      rgba(76, 175, 80, 0.1),
+      rgba(27, 94, 32, 0.05)
+    );
+  }
+
+  .shape-2 {
+    width: 200px;
+    height: 200px;
+    bottom: 20%;
+    left: -100px;
+    animation: floatAnimation 15s ease-in-out infinite alternate-reverse;
+    background: linear-gradient(
+      -45deg,
+      rgba(129, 199, 132, 0.1),
+      rgba(56, 142, 60, 0.05)
+    );
+  }
+
+  .shape-3 {
+    width: 150px;
+    height: 150px;
+    top: 40%;
+    right: 10%;
+    animation: floatAnimation 18s ease-in-out infinite alternate;
+    background: linear-gradient(
+      135deg,
+      rgba(165, 214, 167, 0.1),
+      rgba(76, 175, 80, 0.05)
+    );
+  }
+
+  /* Enhanced Stat Cards */
+  .stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+
+  .stat-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15), 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  /* Enhanced Animations */
+  @keyframes slowZoom {
+    0% {
+      transform: scale(1) rotate(0deg);
+    }
+    100% {
+      transform: scale(1.1) rotate(1deg);
+    }
+  }
+
+  @keyframes floatAnimation {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    50% {
+      transform: translate(15px, -15px) rotate(2deg);
+    }
+    100% {
+      transform: translate(-15px, 15px) rotate(-2deg);
+    }
+  }
+
+  /* Enhanced Fade Animations */
+  .fade-in {
+    opacity: 0;
+    animation: fadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .fade-in-delay-1 {
+    opacity: 0;
+    animation: fadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+  }
+
+  .fade-in-delay-2 {
+    opacity: 0;
+    animation: fadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards;
+  }
+
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  /* Enhanced Wave Animation */
+  .wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='1' d='M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: drop-shadow(0 -2px 4px rgba(0, 0, 0, 0.1));
+  }
+
+  /* Hover Effects */
+  .hover-float {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .hover-float:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(27, 94, 32, 0.2);
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 991.98px) {
+    .hero-section {
+      min-height: auto;
+      padding: 8rem 0;
+    }
+
+    .shape-1,
+    .shape-2,
+    .shape-3 {
+      opacity: 0.5;
+      transform: scale(0.8);
+    }
+
+    .stat-card {
+      backdrop-filter: blur(8px);
+    }
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f8e9;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #388e3c;
+    border-radius: 6px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2e7d32;
+  }
+</style>
+<section class="hero-section text-white position-relative">
+  <div class="container py-5">
+    <div class="row align-items-center min-vh-75">
+      <div class="col-lg-6 hero-content">
+        <h1 class="display-4 fw-bold mb-4">
+          Garbage Reports Management System
+        </h1>
+        <p class="lead mb-4">
+          Help make your Garbage handing by reporting issues and tracking their
+          resolution. Together, we can create positive change.
+        </p>
+        <div class="d-flex gap-3">
+          <a href="{% url 'submit_report' %}" class="btn btn-light btn-lg px-4"
+            >Submit Report</a
+          >
+          <a
+            href="{% url 'register' %}"
+            class="btn btn-outline-light btn-lg px-4"
+            >Explore</a
+          >
+        </div>
+      </div>
+      <div class="col-lg-6 d-none d-lg-block">
+        <div class="row g-3">
+          <div class="col-6">
+            <div
+              class="stat-card p-4 text-center mb-3"
+              style="animation-delay: 0.2s"
+            >
+              <h3 class="display-6 fw-bold">{{ total_reports }}</h3>
+              <p class="mb-0">Total Reports</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div
+              class="stat-card p-4 text-center mb-3"
+              style="animation-delay: 0.4s"
+            >
+              <h3 class="display-6 fw-bold">{{ resolved_percentage }}%</h3>
+              <p class="mb-0">Resolution Rate</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div
+              class="stat-card p-4 text-center"
+              style="animation-delay: 0.6s"
+            >
+              <h3 class="display-6 fw-bold">{{ active_users }}</h3>
+              <p class="mb-0">Active Users</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div
+              class="stat-card p-4 text-center"
+              style="animation-delay: 0.8s"
+            >
+              <h3 class="display-6 fw-bold">{{ avg_response_time }}</h3>
+              <p class="mb-0">Avg. Response Time</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wave"></div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-5">How It Works</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div
+          class="feature-card card h-100 border-0 shadow-sm"
+          style="animation-delay: 0.2s"
+        >
+          <div class="card-body text-center p-4">
+            <div
+              class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+              style="width: 60px; height: 60px"
+            >
+              <i class="fas fa-camera fa-2x"></i>
+            </div>
+            <h3 class="h5 mb-3">Submit Report</h3>
+            <p class="text-muted mb-0">
+              Take a photo, describe the issue, and mark the location. Your
+              report will be reviewed immediately.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          class="feature-card card h-100 border-0 shadow-sm"
+          style="animation-delay: 0.4s"
+        >
+          <div class="card-body text-center p-4">
+            <div
+              class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+              style="width: 60px; height: 60px"
+            >
+              <i class="fas fa-clipboard-check fa-2x"></i>
+            </div>
+            <h3 class="h5 mb-3">Track Progress</h3>
+            <p class="text-muted mb-0">
+              Monitor the status of your reports in real-time and receive
+              updates as they're processed.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          class="feature-card card h-100 border-0 shadow-sm"
+          style="animation-delay: 0.6s"
+        >
+          <div class="card-body text-center p-4">
+            <div
+              class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+              style="width: 60px; height: 60px"
+            >
+              <i class="fas fa-chart-line fa-2x"></i>
+            </div>
+            <h3 class="h5 mb-3">View Analytics</h3>
+            <p class="text-muted mb-0">
+              Access detailed statistics and insights about reported issues in
+              your community.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Recent Reports Section -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-5">Recent Reports</h2>
+    <div class="row g-4">
+      {% for report in recent_reports %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <img
+            src="{{ report.image.url }}"
+            class="card-img-top"
+            alt="Report Image"
+            style="height: 200px; object-fit: cover"
+          />
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span
+                class="badge {% if report.status == 'pending' %}bg-success{% elif report.status == 'in_progress' %}bg-warning{% else %}bg-success{% endif %}"
+              >
+                {{ report.status|title }}
+              </span>
+              <small class="text-muted"
+                >{{ report.created_at|date:"M d, Y" }}</small
+              >
+            </div>
+            <h5 class="card-title">{{ report.title }}</h5>
+            <p class="card-text text-muted">
+              {{ report.description|truncatewords:20 }}
+            </p>
+            <div class="d-flex justify-content-between align-items-center">
+              <small class="text-muted"
+                ><i class="fas fa-map-marker-alt"></i> {{
+                report.address|default:report.city }}</small
+              >
+              <a href="#" class="btn btn-sm btn-outline-success"
+                >View Details</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-success text-white text-center">
+  <div class="container">
+    <h2 class="mb-4">Ready to Make a Difference?</h2>
+    <p class="lead mb-4">
+      Join our community and help make your neighborhood a better place.
+    </p>
+    <a href="{% url 'register' %}" class="btn btn-light btn-lg px-4"
+      >Get Started Today</a
+    >
+  </div>
+</section>
+{% endblock %} {% block extra_js %}
+<script>
+  // Animate features on scroll
+  const observerOptions = {
+    root: null,
+    threshold: 0.1,
+    rootMargin: "0px",
+  };
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = "1";
+        entry.target.style.transform = "translateY(0)";
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll(".feature-card").forEach((card) => {
+    card.style.opacity = "0";
+    card.style.transform = "translateY(20px)";
+    observer.observe(card);
+  });
+
+  // Stats counter animation
+  function animateCounter(element, target) {
+    let current = 0;
+    const increment = target / 50;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        clearInterval(timer);
+        current = target;
+      }
+      element.textContent = Math.round(current);
+    }, 20);
+  }
+
+  document.querySelectorAll(".stat-card h3").forEach((stat) => {
+    const target = parseInt(stat.textContent);
+    if (!isNaN(target)) {
+      animateCounter(stat, target);
+    }
+  });
+</script>
+{% endblock %}

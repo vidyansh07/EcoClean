@@ -1,0 +1,90 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">Report Details</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <img
+                src="{{ report.image.url }}"
+                class="img-fluid rounded"
+                alt="Garbage Report Image"
+              />
+            </div>
+            <div class="col-md-6">
+              <h6>Report Information</h6>
+              <p>
+                <strong>Date:</strong> {{ report.created_at|date:"M d, Y H:i" }}
+              </p>
+              <p><strong>Status:</strong> {{ report.status|title }}</p>
+              <p>
+                <strong>Location:</strong> {{ report.address|default:report.city
+                }}
+              </p>
+              <p><strong>Description:</strong> {{ report.description }}</p>
+              <p>
+                <strong>Reported by:</strong> {{ report.user.get_full_name }}
+              </p>
+
+              <div id="map" style="height: 200px" class="mb-3"></div>
+
+              <form method="post">
+                {% csrf_token %} {% if report.status == 'pending' %}
+                <button
+                  type="submit"
+                  name="action"
+                  value="accept"
+                  class="btn btn-primary"
+                >
+                  Accept Report
+                </button>
+                {% elif report.status == 'in_progress' %}
+                <button
+                  type="submit"
+                  name="action"
+                  value="complete"
+                  class="btn btn-success"
+                >
+                  Mark as Completed
+                </button>
+                {% endif %}
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <!-- Additional information or actions can be added here -->
+    </div>
+  </div>
+</div>
+
+{% block extra_js %}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-OaXa_GopW-98HKKUOZE7vtMwoJmYWPI"></script>
+<script>
+  function initMap() {
+      const location = {
+          lat: {{ report.latitude }},
+          lng: {{ report.longitude }}
+      };
+
+      const map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: location,
+      });
+
+      new google.maps.Marker({
+          position: location,
+          map: map,
+      });
+  }
+
+  initMap();
+</script>
+{% endblock %} {% endblock %}

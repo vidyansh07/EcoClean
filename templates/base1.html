@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Community Reports{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Global CSS -->
+    <style>
+        :root {
+            --primary-color: #0062cc;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #333;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            padding: 1rem 0;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-link.active {
+            color: var(--primary-color);
+        }
+        
+        /* Button Styles */
+        .btn {
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+            transform: translateY(-1px);
+        }
+        
+        /* Footer Styles */
+        .footer {
+            background-color: var(--light-color);
+            padding: 3rem 0;
+            margin-top: auto;
+        }
+        
+        /* Loading Spinner */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255,255,255,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.3s;
+        }
+        
+        /* Utility Classes */
+        .shadow-sm {
+            box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+        }
+        
+        .shadow-hover:hover {
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1050;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <!-- Loading Spinner -->
+    <div class="loader" id="pageLoader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <i class="fas fa-clipboard-list me-2"></i>
+                Community Reports
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" 
+                           href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'reports' %}active{% endif %}" 
+                           href="{% url 'reports' %}">Reports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'map' %}active{% endif %}" 
+                           href="{% url 'map' %}">Map</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}" 
+                           href="{% url 'about' %}">About</a>
+                    </li>
+                </ul>
+                <div class="d-flex gap-2">
+                    {% if user.is_authenticated %}
+                        <div class="dropdown">
+                            <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-user-circle me-1"></i>
+                                {{ user.username }}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="{% url 'profile' %}">My Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'my_reports' %}">My Reports</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                            </ul>
+                        </div>
+                        <a href="{% url 'submit_report' %}" class="btn btn-primary">
+                            <i class="fas fa-plus me-1"></i>
+                            New Report
+                        </a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-outline-primary">Login</a>
+                        <a href="{% url 'register' %}" class="btn btn-primary">Sign Up</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Toast Notifications Container -->
+    <div class="toast-container"></div>
+    
+    <!-- Main Content -->
+    <main class="flex-grow-1">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <h5 class="mb-3">Community Reports</h5>
+                    <p class="text-muted">Empowering communities to report and resolve local issues efficiently.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-secondary"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-secondary"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-secondary"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'home' %}" class="text-decoration-none text-secondary">Home</a></li>
+                        <li><a href="{% url 'about' %}" class="text-decoration-none text-secondary">About</a></li>
+                        <li><a href="{% url 'map' %}" class="text-decoration-none text-secondary">Map</a></li>
+                        <li><a href="{% url 'contact' %}" class="text-decoration-none text-secondary">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">Help & Support</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none text-secondary">FAQ</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary">Privacy Policy</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary">Terms of Service</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary">Support Center</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">Newsletter</h5>
+                    <p class="text-muted">Stay updated with our latest news and updates.</p>
+                    <form class="mb-3">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Enter your email">
+                            <button class="btn btn-primary" type="submit">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center text-muted">
+                <small>&copy; {% now "Y" %} Community Reports. All rights reserved.</small>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Global Scripts -->
+    <script>
+        // Hide loader when page is loaded
+        window.addEventListener('load', function() {
+            document.getElementById('pageLoader').style.opacity = '0';
+            setTimeout(function() {
+                document.getElementById('pageLoader').style.display = 'none';
+            }, 300);
+        });
+        
+        // Toast notification function
+        function showToast(message, type = 'info') {
+            const toastContainer = document.querySelector('.toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast align-items-center text-white bg-${type} border-0`;
+            toast.setAttribute('role', 'alert');
+            toast.setAttribute('aria-live', 'assertive');
+            toast.setAttribute('aria-atomic', 'true');
+            
+            toast.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body">${message}</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            `;
+            
+            toastContainer.appendChild(toast);
+            const bsToast = new bootstrap.Toast(toast);
+            bsToast.show();
+            
+            toast.addEventListener('hidden.bs.toast', function() {
+                toast.remove();
+            });
+        }
+        
+        // Active link highlighting
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
