@@ -111,14 +111,15 @@ User -> Uploads Garbage Report -> System Captures Image and Location
 ---
 
 ## Screenshots
+## Screenshots
 
 1. **User Submission Page**  
    Users submit images of garbage locations along with real-time location data.  
-   ![User Submission Page]([https://github.com/vidyansh07/EcoClean/blob/main/screenshots/Screenshot%202024-11-01%20155023.png])
+   ![User Submission Page](https://github.com/vidyansh07/EcoClean/blob/main/screenshots/Screenshot%202024-11-01%20155023.png)
 
-2. **Admin registration**  
+2. **Admin Dashboard**  
    Admins view incoming reports, sorted by proximity, and manage task statuses.  
-   ![Admin Dashboard]([https://github.com/vidyansh07/EcoClean/blob/main/screenshots/Screenshot%202024-11-01%20155141.png])
+   ![Admin Dashboard](https://github.com/vidyansh07/EcoClean/blob/main/screenshots/Screenshot%202024-11-01%20155141.png)
 
 3. **Task Management**  
    Admins can update report status to reflect collection progress.  
