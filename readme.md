@@ -121,9 +121,9 @@ User -> Uploads Garbage Report -> System Captures Image and Location
    Admins view incoming reports, sorted by proximity, and manage task statuses.  
    ![Admin Dashboard](https://github.com/vidyansh07/EcoClean/blob/main/screenshots/Screenshot%202024-11-01%20155141.png)
 
-3. **Task Management**  
+3. **Main Dashboard**  
    Admins can update report status to reflect collection progress.  
-   ![Task Management](path/to/task_management_image.png)
+   ![Main Dashboard](https://github.com/vidyansh07/EcoClean/blob/main/screenshots/Screenshot%202024-11-01%20152605.png)
 
 ---
 
