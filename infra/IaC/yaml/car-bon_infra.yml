@@ -1,0 +1,1080 @@
+---
+Metadata:
+  TemplateId: "arn:aws:cloudformation:us-east-1:956047403479:generatedTemplate/1e585698-dbca-4289-86ef-254492244499"
+Parameters:
+  LambdaFunction00carbon00eSP9PCodeS3KeyOneOfnaRpU:
+    NoEcho: "true"
+    Type: "String"
+    Description: "The Amazon S3 key of the deployment package.\nThis property can\
+      \ be replaced with other exclusive properties"
+  LambdaFunction00carbon00eSP9PCodeS3BucketOneOfDYW9Z:
+    NoEcho: "true"
+    Type: "String"
+    Description: "An Amazon S3 bucket in the same AWS-Region as your function. The\
+      \ bucket can be in a different AWS-account.\nThis property can be replaced with\
+      \ other exclusive properties"
+Resources:
+  IAMManagedPolicy00policyserviceroleAWSLambdaBasicExecutionRoleecaeb1adc4fe48aa9b25f7c6073236cf00yG8C3:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::ManagedPolicy"
+    DeletionPolicy: "Retain"
+    Properties:
+      ManagedPolicyName: "AWSLambdaBasicExecutionRole-ecaeb1ad-c4fe-48aa-9b25-f7c6073236cf"
+      Path: "/service-role/"
+      Description: ""
+      Groups: []
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Resource: "arn:aws:logs:us-west-2:956047403479:*"
+          Action: "logs:CreateLogGroup"
+          Effect: "Allow"
+        - Resource:
+          - "arn:aws:logs:us-west-2:956047403479:log-group:/aws/lambda/test-deploy:*"
+          Action:
+          - "logs:CreateLogStream"
+          - "logs:PutLogEvents"
+          Effect: "Allow"
+      Roles:
+      - "test-deploy-role-kpxpul0n"
+      Users: []
+  LogsLogStream0020231126LATEST4efc91a34cd84651b1a0c5638daef24d00Q7PP3:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2023/11/26/[$LATEST]4efc91a34cd84651b1a0c5638daef24d"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LambdaPermission00functioncarbon00TusEK:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Lambda::Permission"
+    DeletionPolicy: "Retain"
+    Properties:
+      FunctionName:
+        Fn::GetAtt:
+        - "LambdaFunction00carbon00eSP9P"
+        - "Arn"
+      Action: "lambda:InvokeFunctionUrl"
+      FunctionUrlAuthType: "NONE"
+      Principal: "*"
+  LogsLogStream0020231217LATESTb31282893c3448438746706fbcc0e0f100Net1g:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2023/12/17/[$LATEST]b31282893c3448438746706fbcc0e0f1"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020240222LATESTc7a213879c8d45119130bc2452f9d58b00hiIB3:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/22/[$LATEST]c7a213879c8d45119130bc2452f9d58b"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020240226LATESTf313b321741540bebb784527f12cd97700zsLxA:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/26/[$LATEST]f313b321741540bebb784527f12cd977"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  CloudWatchAlarm00TargetTrackingtableusertableAlarmHigh62123ea807cc4b8c8bf722d1b421edee00GCnBN:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::CloudWatch::Alarm"
+    DeletionPolicy: "Retain"
+    Properties:
+      ComparisonOperator: "GreaterThanThreshold"
+      Dimensions:
+      - Value:
+          Ref: "DynamoDBTable00usertable00WKSwI"
+        Name: "TableName"
+      Period: 60
+      EvaluationPeriods: 2
+      Namespace: "AWS/DynamoDB"
+      OKActions: []
+      AlarmActions:
+      - "arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:882b09db-ba18-4e07-a83f-611a14d3b5ae:resource/dynamodb/table/user_table:policyName/$user_table-scaling-policy:createdBy/15562aef-84ae-4d2f-9edf-5c14103bd860"
+      MetricName: "ConsumedReadCapacityUnits"
+      ActionsEnabled: true
+      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:882b09db-ba18-4e07-a83f-611a14d3b5ae:resource/dynamodb/table/user_table:policyName/$user_table-scaling-policy:createdBy/15562aef-84ae-4d2f-9edf-5c14103bd860."
+      AlarmName: "TargetTracking-table/user_table-AlarmHigh-62123ea8-07cc-4b8c-8bf7-22d1b421edee"
+      Statistic: "Sum"
+      InsufficientDataActions: []
+      Threshold: 42
+  LogsLogStream0020231223LATEST7b97f7086e9048b0aee0f922ba19a9ff007DsjO:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2023/12/23/[$LATEST]7b97f7086e9048b0aee0f922ba19a9ff"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020240227LATEST4da2ac693cf7416c928733283aa5c517005Dsof:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/27/[$LATEST]4da2ac693cf7416c928733283aa5c517"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020240227LATEST09ba96fecd4146fb90474fe560a027fb00iyvjV:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/27/[$LATEST]09ba96fecd4146fb90474fe560a027fb"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  CloudWatchAlarm00TargetTrackingtableusertableProvisionedCapacityLow301486c258dc4200be1dc0d117e73bc400GjQ7T:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::CloudWatch::Alarm"
+    DeletionPolicy: "Retain"
+    Properties:
+      ComparisonOperator: "LessThanThreshold"
+      Dimensions:
+      - Value:
+          Ref: "DynamoDBTable00usertable00WKSwI"
+        Name: "TableName"
+      Period: 300
+      EvaluationPeriods: 3
+      Namespace: "AWS/DynamoDB"
+      OKActions: []
+      AlarmActions:
+      - "arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:1e932402-6775-4704-9d4f-1d86384c1de4:resource/dynamodb/table/user_table:policyName/$user_table-scaling-policy:createdBy/9385b305-8106-4f39-9c6a-0c32509d0bce"
+      MetricName: "ProvisionedWriteCapacityUnits"
+      ActionsEnabled: true
+      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:1e932402-6775-4704-9d4f-1d86384c1de4:resource/dynamodb/table/user_table:policyName/$user_table-scaling-policy:createdBy/9385b305-8106-4f39-9c6a-0c32509d0bce."
+      AlarmName: "TargetTracking-table/user_table-ProvisionedCapacityLow-301486c2-58dc-4200-be1d-c0d117e73bc4"
+      Statistic: "Average"
+      InsufficientDataActions: []
+      Threshold: 1
+  CloudWatchAlarm00TargetTrackingtableCarBonDataProvisionedCapacityLow4ddbcf35be5444f4a3d9b42ed81bafe400XeRWC:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::CloudWatch::Alarm"
+    DeletionPolicy: "Retain"
+    Properties:
+      ComparisonOperator: "LessThanThreshold"
+      Dimensions:
+      - Value:
+          Ref: "DynamoDBTable00CarBonData005PE3a"
+        Name: "TableName"
+      Period: 300
+      EvaluationPeriods: 3
+      Namespace: "AWS/DynamoDB"
+      OKActions: []
+      AlarmActions:
+      - "arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:70f9df8e-f69b-4387-8223-568898d23587:resource/dynamodb/table/CarBon_Data:policyName/$CarBon_Data-scaling-policy:createdBy/62016e79-13f9-4128-adaf-ab7799121b4d"
+      MetricName: "ProvisionedWriteCapacityUnits"
+      ActionsEnabled: true
+      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:70f9df8e-f69b-4387-8223-568898d23587:resource/dynamodb/table/CarBon_Data:policyName/$CarBon_Data-scaling-policy:createdBy/62016e79-13f9-4128-adaf-ab7799121b4d."
+      AlarmName: "TargetTracking-table/CarBon_Data-ProvisionedCapacityLow-4ddbcf35-be54-44f4-a3d9-b42ed81bafe4"
+      Statistic: "Average"
+      InsufficientDataActions: []
+      Threshold: 1
+  LogsLogStream0020240219LATEST04da01bd949a4e2ba851a3a9e0af1d5100pgq7M:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/19/[$LATEST]04da01bd949a4e2ba851a3a9e0af1d51"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020240222LATESTd892202d630449e785f3e90fc0da5788007FvQF:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/22/[$LATEST]d892202d630449e785f3e90fc0da5788"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  CloudWatchAlarm00TargetTrackingtableCarBonDataProvisionedCapacityHigh7c639e48c9874a52b504c7563f6e0956003jdXX:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::CloudWatch::Alarm"
+    DeletionPolicy: "Retain"
+    Properties:
+      ComparisonOperator: "GreaterThanThreshold"
+      Dimensions:
+      - Value:
+          Ref: "DynamoDBTable00CarBonData005PE3a"
+        Name: "TableName"
+      Period: 300
+      EvaluationPeriods: 3
+      Namespace: "AWS/DynamoDB"
+      OKActions: []
+      AlarmActions:
+      - "arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:70f9df8e-f69b-4387-8223-568898d23587:resource/dynamodb/table/CarBon_Data:policyName/$CarBon_Data-scaling-policy:createdBy/62016e79-13f9-4128-adaf-ab7799121b4d"
+      MetricName: "ProvisionedWriteCapacityUnits"
+      ActionsEnabled: true
+      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:70f9df8e-f69b-4387-8223-568898d23587:resource/dynamodb/table/CarBon_Data:policyName/$CarBon_Data-scaling-policy:createdBy/62016e79-13f9-4128-adaf-ab7799121b4d."
+      AlarmName: "TargetTracking-table/CarBon_Data-ProvisionedCapacityHigh-7c639e48-c987-4a52-b504-c7563f6e0956"
+      Statistic: "Average"
+      InsufficientDataActions: []
+      Threshold: 1
+  DynamoDBTable00usertable00WKSwI:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::DynamoDB::Table"
+    DeletionPolicy: "Retain"
+    Properties:
+      SSESpecification:
+        SSEEnabled: false
+      TableName: "user_table"
+      AttributeDefinitions:
+      - AttributeType: "S"
+        AttributeName: "id"
+      ContributorInsightsSpecification:
+        Enabled: false
+      BillingMode: "PROVISIONED"
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: false
+      ProvisionedThroughput:
+        WriteCapacityUnits: 1
+        ReadCapacityUnits: 1
+      KeySchema:
+      - KeyType: "HASH"
+        AttributeName: "id"
+      DeletionProtectionEnabled: false
+      TableClass: "STANDARD"
+      Tags: []
+      TimeToLiveSpecification:
+        Enabled: false
+  CloudWatchAlarm00TargetTrackingtableusertableProvisionedCapacityLowe99242528a1d4c8394f2f6d115e0470300RRsRW:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::CloudWatch::Alarm"
+    DeletionPolicy: "Retain"
+    Properties:
+      ComparisonOperator: "LessThanThreshold"
+      Dimensions:
+      - Value:
+          Ref: "DynamoDBTable00usertable00WKSwI"
+        Name: "TableName"
+      Period: 300
+      EvaluationPeriods: 3
+      Namespace: "AWS/DynamoDB"
+      OKActions: []
+      AlarmActions:
+      - "arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:882b09db-ba18-4e07-a83f-611a14d3b5ae:resource/dynamodb/table/user_table:policyName/$user_table-scaling-policy:createdBy/15562aef-84ae-4d2f-9edf-5c14103bd860"
+      MetricName: "ProvisionedReadCapacityUnits"
+      ActionsEnabled: true
+      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:882b09db-ba18-4e07-a83f-611a14d3b5ae:resource/dynamodb/table/user_table:policyName/$user_table-scaling-policy:createdBy/15562aef-84ae-4d2f-9edf-5c14103bd860."
+      AlarmName: "TargetTracking-table/user_table-ProvisionedCapacityLow-e9924252-8a1d-4c83-94f2-f6d115e04703"
+      Statistic: "Average"
+      InsufficientDataActions: []
+      Threshold: 1
+  LogsLogStream0020240226LATEST4e212b83706442aeb5b523e4c84ad54100XMom2:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/26/[$LATEST]4e212b83706442aeb5b523e4c84ad541"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  DynamoDBTable00CarBonData005PE3a:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::DynamoDB::Table"
+    DeletionPolicy: "Retain"
+    Properties:
+      SSESpecification:
+        SSEEnabled: false
+      TableName: "CarBon_Data"
+      AttributeDefinitions:
+      - AttributeType: "S"
+        AttributeName: "device_id"
+      - AttributeType: "N"
+        AttributeName: "timestamp"
+      ContributorInsightsSpecification:
+        Enabled: false
+      BillingMode: "PROVISIONED"
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: false
+      ProvisionedThroughput:
+        WriteCapacityUnits: 1
+        ReadCapacityUnits: 1
+      KeySchema:
+      - KeyType: "HASH"
+        AttributeName: "device_id"
+      - KeyType: "RANGE"
+        AttributeName: "timestamp"
+      DeletionProtectionEnabled: false
+      TableClass: "STANDARD"
+      Tags:
+      - Value: "v2"
+        Key: "Table_column_schema"
+      - Value: "work"
+        Key: "service_usage_type"
+      TimeToLiveSpecification:
+        Enabled: false
+  LogsLogStream0020231126LATEST17a454ca43bc44a0a2017b73eab53f7700U7Mpa:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2023/11/26/[$LATEST]17a454ca43bc44a0a2017b73eab53f77"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020240227LATEST5184fbe766d94751916e257ee9707ce600CyCZ7:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/27/[$LATEST]5184fbe766d94751916e257ee9707ce6"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020231217LATEST4a3e9d0ae15c475d9224a1d711b0f3f400ALDW6:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2023/12/17/[$LATEST]4a3e9d0ae15c475d9224a1d711b0f3f4"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020240222LATESTf388a74bddf04093857d9bfc61738c4c00Z5i0W:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/22/[$LATEST]f388a74bddf04093857d9bfc61738c4c"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020231217LATEST3be116ccafef40b18f405b341f6091c000sZVxj:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2023/12/17/[$LATEST]3be116ccafef40b18f405b341f6091c0"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020231217LATEST6d745045363141768dbfd5cc45031fd100vGFkY:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2023/12/17/[$LATEST]6d745045363141768dbfd5cc45031fd1"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020240222LATEST24fa9dba9cfb498a91c8b5e8c399768a00X1VBp:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/22/[$LATEST]24fa9dba9cfb498a91c8b5e8c399768a"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  IAMGroup00MainGroup00cOWpJ:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::Group"
+    DeletionPolicy: "Retain"
+    Properties:
+      GroupName: "MainGroup"
+      Path: "/"
+      ManagedPolicyArns:
+      - "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
+      - "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess"
+      Policies:
+      - PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+          - Resource: "arn:aws:dynamodb:*:956047403479:table/*"
+            Action: "dynamodb:PutItem"
+            Effect: "Allow"
+            Sid: "VisualEditor0"
+        PolicyName: "Explicit_DynamoDB_Put_Item_Policy"
+      - PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+          - Resource: "arn:aws:dynamodb:*:956047403479:table/*/index/*"
+            Action: "dynamodb:Scan"
+            Effect: "Allow"
+            Sid: "VisualEditor0"
+          - Resource: "arn:aws:dynamodb:*:956047403479:table/*"
+            Action: "dynamodb:Scan"
+            Effect: "Allow"
+            Sid: "VisualEditor1"
+        PolicyName: "Explicit_DynamoDB_Scan_Policy"
+      - PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+          - Resource: "*"
+            Action: "lambda:*"
+            Effect: "Allow"
+            Sid: "VisualEditor0"
+        PolicyName: "Lambda_Access"
+  ECRRepository00carbon005XHcp:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::ECR::Repository"
+    DeletionPolicy: "Retain"
+    Properties:
+      ImageScanningConfiguration:
+        ScanOnPush: false
+      RepositoryName: "car-bon"
+      EncryptionConfiguration:
+        EncryptionType: "AES256"
+      RepositoryPolicyText:
+        Version: "2008-10-17"
+        Statement:
+        - Condition:
+            StringLike:
+              aws:sourceArn: "arn:aws:lambda:us-east-1:956047403479:function:*"
+          Action:
+          - "ecr:BatchGetImage"
+          - "ecr:GetDownloadUrlForLayer"
+          - "ecr:SetRepositoryPolicy"
+          - "ecr:DeleteRepositoryPolicy"
+          - "ecr:GetRepositoryPolicy"
+          Effect: "Allow"
+          Principal:
+            Service: "lambda.amazonaws.com"
+          Sid: "LambdaECRImageRetrievalPolicy"
+      Tags: []
+      ImageTagMutability: "MUTABLE"
+  IAMRole00carbonroleohb3r0an00JKDg7:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::Role"
+    DeletionPolicy: "Retain"
+    Properties:
+      Path: "/service-role/"
+      ManagedPolicyArns:
+      - "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
+      - "arn:aws:iam::aws:policy/service-role/AWSLambdaDynamoDBExecutionRole"
+      - Ref: "IAMManagedPolicy00policyserviceroleAWSLambdaBasicExecutionRolec69c738535234347b75c78e0cbc9027c00BRTIV"
+      - "arn:aws:iam::aws:policy/AWSLambdaInvocation-DynamoDB"
+      - "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
+      MaxSessionDuration: 3600
+      RoleName: "car-bon-role-ohb3r0an"
+      Policies:
+      - PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+          - Resource: "arn:aws:dynamodb:*:956047403479:table/*/index/*"
+            Action:
+            - "dynamodb:Scan"
+            - "dynamodb:Query"
+            Effect: "Allow"
+            Sid: "VisualEditor0"
+          - Resource: "arn:aws:dynamodb:*:956047403479:table/*"
+            Action:
+            - "dynamodb:PutItem"
+            - "dynamodb:Scan"
+            - "dynamodb:Query"
+            Effect: "Allow"
+            Sid: "VisualEditor1"
+        PolicyName: "Explicit_Dynamo_DB_Read_Write_policy"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Action: "sts:AssumeRole"
+          Effect: "Allow"
+          Principal:
+            Service: "lambda.amazonaws.com"
+  LogsLogStream0020231218LATEST4329f34732a6418a8196dba0c369a89500H03Qw:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2023/12/18/[$LATEST]4329f34732a6418a8196dba0c369a895"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  CloudWatchAlarm00TargetTrackingtableusertableProvisionedCapacityHigh4fb3b5b16f29447a9b6c396f6335123100LEh9l:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::CloudWatch::Alarm"
+    DeletionPolicy: "Retain"
+    Properties:
+      ComparisonOperator: "GreaterThanThreshold"
+      Dimensions:
+      - Value:
+          Ref: "DynamoDBTable00usertable00WKSwI"
+        Name: "TableName"
+      Period: 300
+      EvaluationPeriods: 3
+      Namespace: "AWS/DynamoDB"
+      OKActions: []
+      AlarmActions:
+      - "arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:882b09db-ba18-4e07-a83f-611a14d3b5ae:resource/dynamodb/table/user_table:policyName/$user_table-scaling-policy:createdBy/15562aef-84ae-4d2f-9edf-5c14103bd860"
+      MetricName: "ProvisionedReadCapacityUnits"
+      ActionsEnabled: true
+      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:882b09db-ba18-4e07-a83f-611a14d3b5ae:resource/dynamodb/table/user_table:policyName/$user_table-scaling-policy:createdBy/15562aef-84ae-4d2f-9edf-5c14103bd860."
+      AlarmName: "TargetTracking-table/user_table-ProvisionedCapacityHigh-4fb3b5b1-6f29-447a-9b6c-396f63351231"
+      Statistic: "Average"
+      InsufficientDataActions: []
+      Threshold: 1
+  LogsLogStream0020240227LATEST112f4866f23f492d9f64e627a73b015300eMIPl:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/27/[$LATEST]112f4866f23f492d9f64e627a73b0153"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LambdaFunction00carbon00eSP9P:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Lambda::Function"
+    DeletionPolicy: "Retain"
+    Properties:
+      MemorySize: 128
+      Description: ""
+      TracingConfig:
+        Mode: "PassThrough"
+      Timeout: 300
+      Code:
+        S3Bucket:
+          Ref: "LambdaFunction00carbon00eSP9PCodeS3BucketOneOfDYW9Z"
+        S3Key:
+          Ref: "LambdaFunction00carbon00eSP9PCodeS3KeyOneOfnaRpU"
+      Role:
+        Fn::GetAtt:
+        - "IAMRole00carbonroleohb3r0an00JKDg7"
+        - "Arn"
+      FileSystemConfigs: []
+      FunctionName: "car-bon"
+      PackageType: "Image"
+      LoggingConfig:
+        LogFormat: "Text"
+        LogGroup: "/aws/lambda/car-bon"
+      EphemeralStorage:
+        Size: 512
+      Tags:
+      - Value: "work"
+        Key: "service_usage_type"
+      Architectures:
+      - "x86_64"
+  CloudWatchAlarm00TargetTrackingtableusertableProvisionedCapacityHigh870d8b6b584f4619bee800786da8cf8700FQZIe:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::CloudWatch::Alarm"
+    DeletionPolicy: "Retain"
+    Properties:
+      ComparisonOperator: "GreaterThanThreshold"
+      Dimensions:
+      - Value:
+          Ref: "DynamoDBTable00usertable00WKSwI"
+        Name: "TableName"
+      Period: 300
+      EvaluationPeriods: 3
+      Namespace: "AWS/DynamoDB"
+      OKActions: []
+      AlarmActions:
+      - "arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:1e932402-6775-4704-9d4f-1d86384c1de4:resource/dynamodb/table/user_table:policyName/$user_table-scaling-policy:createdBy/9385b305-8106-4f39-9c6a-0c32509d0bce"
+      MetricName: "ProvisionedWriteCapacityUnits"
+      ActionsEnabled: true
+      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:1e932402-6775-4704-9d4f-1d86384c1de4:resource/dynamodb/table/user_table:policyName/$user_table-scaling-policy:createdBy/9385b305-8106-4f39-9c6a-0c32509d0bce."
+      AlarmName: "TargetTracking-table/user_table-ProvisionedCapacityHigh-870d8b6b-584f-4619-bee8-00786da8cf87"
+      Statistic: "Average"
+      InsufficientDataActions: []
+      Threshold: 1
+  CloudWatchAlarm00TargetTrackingtableusertableAlarmLowcae43aa85a7845519576c411de97144a00FXhe2:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::CloudWatch::Alarm"
+    DeletionPolicy: "Retain"
+    Properties:
+      ComparisonOperator: "LessThanThreshold"
+      Dimensions:
+      - Value:
+          Ref: "DynamoDBTable00usertable00WKSwI"
+        Name: "TableName"
+      Period: 60
+      EvaluationPeriods: 15
+      Namespace: "AWS/DynamoDB"
+      OKActions: []
+      AlarmActions:
+      - "arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:882b09db-ba18-4e07-a83f-611a14d3b5ae:resource/dynamodb/table/user_table:policyName/$user_table-scaling-policy:createdBy/15562aef-84ae-4d2f-9edf-5c14103bd860"
+      MetricName: "ConsumedReadCapacityUnits"
+      ActionsEnabled: true
+      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:882b09db-ba18-4e07-a83f-611a14d3b5ae:resource/dynamodb/table/user_table:policyName/$user_table-scaling-policy:createdBy/15562aef-84ae-4d2f-9edf-5c14103bd860."
+      AlarmName: "TargetTracking-table/user_table-AlarmLow-cae43aa8-5a78-4551-9576-c411de97144a"
+      Statistic: "Sum"
+      InsufficientDataActions: []
+      Threshold: 30
+  LogsLogStream0020240226LATEST226a849cedf745c6a783f64204880a4300EqHIk:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/26/[$LATEST]226a849cedf745c6a783f64204880a43"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020231218LATESTa7cb859ac6fb4a0188b3660b8809afd000PLple:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2023/12/18/[$LATEST]a7cb859ac6fb4a0188b3660b8809afd0"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  CloudWatchAlarm00TargetTrackingtableCarBonDataAlarmLowd4bb52030a684824b5e16fd5b568045900KQsrm:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::CloudWatch::Alarm"
+    DeletionPolicy: "Retain"
+    Properties:
+      ComparisonOperator: "LessThanThreshold"
+      Dimensions:
+      - Value:
+          Ref: "DynamoDBTable00CarBonData005PE3a"
+        Name: "TableName"
+      Period: 60
+      EvaluationPeriods: 15
+      Namespace: "AWS/DynamoDB"
+      OKActions: []
+      AlarmActions:
+      - "arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:ddb09e11-64f6-4253-ba2f-f5e9b8632e38:resource/dynamodb/table/CarBon_Data:policyName/$CarBon_Data-scaling-policy:createdBy/874d4356-aa6d-471e-bb60-18a6fb28fb38"
+      MetricName: "ConsumedReadCapacityUnits"
+      ActionsEnabled: true
+      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:ddb09e11-64f6-4253-ba2f-f5e9b8632e38:resource/dynamodb/table/CarBon_Data:policyName/$CarBon_Data-scaling-policy:createdBy/874d4356-aa6d-471e-bb60-18a6fb28fb38."
+      AlarmName: "TargetTracking-table/CarBon_Data-AlarmLow-d4bb5203-0a68-4824-b5e1-6fd5b5680459"
+      Statistic: "Sum"
+      InsufficientDataActions: []
+      Threshold: 30
+  CloudWatchAlarm00TargetTrackingtableCarBonDataAlarmLowf4f8e11e5f9a47aa884cb66b2325428100FBGJb:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::CloudWatch::Alarm"
+    DeletionPolicy: "Retain"
+    Properties:
+      ComparisonOperator: "LessThanThreshold"
+      Dimensions:
+      - Value:
+          Ref: "DynamoDBTable00CarBonData005PE3a"
+        Name: "TableName"
+      Period: 60
+      EvaluationPeriods: 15
+      Namespace: "AWS/DynamoDB"
+      OKActions: []
+      AlarmActions:
+      - "arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:70f9df8e-f69b-4387-8223-568898d23587:resource/dynamodb/table/CarBon_Data:policyName/$CarBon_Data-scaling-policy:createdBy/62016e79-13f9-4128-adaf-ab7799121b4d"
+      MetricName: "ConsumedWriteCapacityUnits"
+      ActionsEnabled: true
+      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:70f9df8e-f69b-4387-8223-568898d23587:resource/dynamodb/table/CarBon_Data:policyName/$CarBon_Data-scaling-policy:createdBy/62016e79-13f9-4128-adaf-ab7799121b4d."
+      AlarmName: "TargetTracking-table/CarBon_Data-AlarmLow-f4f8e11e-5f9a-47aa-884c-b66b23254281"
+      Statistic: "Sum"
+      InsufficientDataActions: []
+      Threshold: 30
+  CloudWatchAlarm00TargetTrackingtableusertableAlarmHighd4a5833b3aa547c39dc96be43dda91dd00N1nek:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::CloudWatch::Alarm"
+    DeletionPolicy: "Retain"
+    Properties:
+      ComparisonOperator: "GreaterThanThreshold"
+      Dimensions:
+      - Value:
+          Ref: "DynamoDBTable00usertable00WKSwI"
+        Name: "TableName"
+      Period: 60
+      EvaluationPeriods: 2
+      Namespace: "AWS/DynamoDB"
+      OKActions: []
+      AlarmActions:
+      - "arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:1e932402-6775-4704-9d4f-1d86384c1de4:resource/dynamodb/table/user_table:policyName/$user_table-scaling-policy:createdBy/9385b305-8106-4f39-9c6a-0c32509d0bce"
+      MetricName: "ConsumedWriteCapacityUnits"
+      ActionsEnabled: true
+      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:1e932402-6775-4704-9d4f-1d86384c1de4:resource/dynamodb/table/user_table:policyName/$user_table-scaling-policy:createdBy/9385b305-8106-4f39-9c6a-0c32509d0bce."
+      AlarmName: "TargetTracking-table/user_table-AlarmHigh-d4a5833b-3aa5-47c3-9dc9-6be43dda91dd"
+      Statistic: "Sum"
+      InsufficientDataActions: []
+      Threshold: 42
+  CloudWatchAlarm00TargetTrackingtableusertableAlarmLow61753b9c05154453a72dfea436ec727b00JEdJI:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::CloudWatch::Alarm"
+    DeletionPolicy: "Retain"
+    Properties:
+      ComparisonOperator: "LessThanThreshold"
+      Dimensions:
+      - Value:
+          Ref: "DynamoDBTable00usertable00WKSwI"
+        Name: "TableName"
+      Period: 60
+      EvaluationPeriods: 15
+      Namespace: "AWS/DynamoDB"
+      OKActions: []
+      AlarmActions:
+      - "arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:1e932402-6775-4704-9d4f-1d86384c1de4:resource/dynamodb/table/user_table:policyName/$user_table-scaling-policy:createdBy/9385b305-8106-4f39-9c6a-0c32509d0bce"
+      MetricName: "ConsumedWriteCapacityUnits"
+      ActionsEnabled: true
+      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:1e932402-6775-4704-9d4f-1d86384c1de4:resource/dynamodb/table/user_table:policyName/$user_table-scaling-policy:createdBy/9385b305-8106-4f39-9c6a-0c32509d0bce."
+      AlarmName: "TargetTracking-table/user_table-AlarmLow-61753b9c-0515-4453-a72d-fea436ec727b"
+      Statistic: "Sum"
+      InsufficientDataActions: []
+      Threshold: 30
+  LogsLogStream0020231217LATEST0a789dffe3da4bc4ad7aa681254217e500WfKuL:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2023/12/17/[$LATEST]0a789dffe3da4bc4ad7aa681254217e5"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020231217LATEST235312185e654cec8e64cafa4caee53700F19Aw:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2023/12/17/[$LATEST]235312185e654cec8e64cafa4caee537"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020231217LATESTa93ac96b1b094f2f84e9e65062a4449000GvTBf:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2023/12/17/[$LATEST]a93ac96b1b094f2f84e9e65062a44490"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020240222LATESTa2a2d5b9eea64a84b30f256c5bc0eec200P4Pgt:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/22/[$LATEST]a2a2d5b9eea64a84b30f256c5bc0eec2"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020231217LATESTb47d13afd90c47e9955add514cc3507b00uSLvC:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2023/12/17/[$LATEST]b47d13afd90c47e9955add514cc3507b"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LambdaUrl00functioncarbon0066JLZ:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Lambda::Url"
+    DeletionPolicy: "Retain"
+    Properties:
+      Qualifier: ""
+      InvokeMode: "BUFFERED"
+      AuthType: "NONE"
+      TargetFunctionArn: "car-bon"
+  IAMManagedPolicy00policyserviceroleAWSLambdaBasicExecutionRolec69c738535234347b75c78e0cbc9027c00BRTIV:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::ManagedPolicy"
+    DeletionPolicy: "Retain"
+    Properties:
+      ManagedPolicyName: "AWSLambdaBasicExecutionRole-c69c7385-3523-4347-b75c-78e0cbc9027c"
+      Path: "/service-role/"
+      Description: ""
+      Groups: []
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Resource: "arn:aws:logs:us-east-1:956047403479:*"
+          Action: "logs:CreateLogGroup"
+          Effect: "Allow"
+        - Resource:
+          - "arn:aws:logs:us-east-1:956047403479:log-group:/aws/lambda/car-bon:*"
+          Action:
+          - "logs:CreateLogStream"
+          - "logs:PutLogEvents"
+          Effect: "Allow"
+      Roles:
+      - "car-bon-role-ohb3r0an"
+      Users: []
+  LogsLogStream0020231219LATESTf98bbe15ca1245b786ca695267d9c31c00b7HLa:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2023/12/19/[$LATEST]f98bbe15ca1245b786ca695267d9c31c"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020240226LATESTcadac5e5deb3446f9ac1b5413f5522f700sOfP3:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/26/[$LATEST]cadac5e5deb3446f9ac1b5413f5522f7"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  CloudWatchAlarm00TargetTrackingtableCarBonDataAlarmHighe6a15479840045f8abf773b940998f8e0098oXI:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::CloudWatch::Alarm"
+    DeletionPolicy: "Retain"
+    Properties:
+      ComparisonOperator: "GreaterThanThreshold"
+      Dimensions:
+      - Value:
+          Ref: "DynamoDBTable00CarBonData005PE3a"
+        Name: "TableName"
+      Period: 60
+      EvaluationPeriods: 2
+      Namespace: "AWS/DynamoDB"
+      OKActions: []
+      AlarmActions:
+      - "arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:ddb09e11-64f6-4253-ba2f-f5e9b8632e38:resource/dynamodb/table/CarBon_Data:policyName/$CarBon_Data-scaling-policy:createdBy/874d4356-aa6d-471e-bb60-18a6fb28fb38"
+      MetricName: "ConsumedReadCapacityUnits"
+      ActionsEnabled: true
+      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:ddb09e11-64f6-4253-ba2f-f5e9b8632e38:resource/dynamodb/table/CarBon_Data:policyName/$CarBon_Data-scaling-policy:createdBy/874d4356-aa6d-471e-bb60-18a6fb28fb38."
+      AlarmName: "TargetTracking-table/CarBon_Data-AlarmHigh-e6a15479-8400-45f8-abf7-73b940998f8e"
+      Statistic: "Sum"
+      InsufficientDataActions: []
+      Threshold: 42
+  LogsLogStream0020231217LATEST1b9fd2f75613401eb78b4d6833c338ec00dd0IX:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2023/12/17/[$LATEST]1b9fd2f75613401eb78b4d6833c338ec"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020240226LATEST05f568e363b04492a468c557405458d100VrBIM:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/26/[$LATEST]05f568e363b04492a468c557405458d1"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020240219LATEST45a29a783c244237ae38ff3ef4a42dc200jCLhs:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/19/[$LATEST]45a29a783c244237ae38ff3ef4a42dc2"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020240226LATEST8ed1e1e00e8549cebafa3dbc3ab92c1500Q7jvs:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/26/[$LATEST]8ed1e1e00e8549cebafa3dbc3ab92c15"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020240219LATEST49b3ac14779646938af847e3260a8ff200L66B4:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/19/[$LATEST]49b3ac14779646938af847e3260a8ff2"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020231126LATEST5d723f5ea185433aa9c739f38c0e572d00fv6FA:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2023/11/26/[$LATEST]5d723f5ea185433aa9c739f38c0e572d"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020231217LATEST39e32e9776024e3ab4be4cd5255af14100Kr2yr:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2023/12/17/[$LATEST]39e32e9776024e3ab4be4cd5255af141"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020240227LATEST3f94210fbdb6464caa2e4a739b90292300037AU:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/27/[$LATEST]3f94210fbdb6464caa2e4a739b902923"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020231126LATEST2be7b5d52c204c4f87320c1ddd2b17a500aIlVT:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2023/11/26/[$LATEST]2be7b5d52c204c4f87320c1ddd2b17a5"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  CloudWatchAlarm00TargetTrackingtableCarBonDataProvisionedCapacityLow31003321f57445b5aaa3b581afb4e2dc00TOtGE:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::CloudWatch::Alarm"
+    DeletionPolicy: "Retain"
+    Properties:
+      ComparisonOperator: "LessThanThreshold"
+      Dimensions:
+      - Value:
+          Ref: "DynamoDBTable00CarBonData005PE3a"
+        Name: "TableName"
+      Period: 300
+      EvaluationPeriods: 3
+      Namespace: "AWS/DynamoDB"
+      OKActions: []
+      AlarmActions:
+      - "arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:ddb09e11-64f6-4253-ba2f-f5e9b8632e38:resource/dynamodb/table/CarBon_Data:policyName/$CarBon_Data-scaling-policy:createdBy/874d4356-aa6d-471e-bb60-18a6fb28fb38"
+      MetricName: "ProvisionedReadCapacityUnits"
+      ActionsEnabled: true
+      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:ddb09e11-64f6-4253-ba2f-f5e9b8632e38:resource/dynamodb/table/CarBon_Data:policyName/$CarBon_Data-scaling-policy:createdBy/874d4356-aa6d-471e-bb60-18a6fb28fb38."
+      AlarmName: "TargetTracking-table/CarBon_Data-ProvisionedCapacityLow-31003321-f574-45b5-aaa3-b581afb4e2dc"
+      Statistic: "Average"
+      InsufficientDataActions: []
+      Threshold: 1
+  LogsLogStream0020240226LATEST11cc65587ecc42eca08907b39741d1bd00JymIH:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/26/[$LATEST]11cc65587ecc42eca08907b39741d1bd"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020240226LATEST8a0ba814532b467c9763901d9c80cf5600EaBG9:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/26/[$LATEST]8a0ba814532b467c9763901d9c80cf56"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  CloudWatchAlarm00TargetTrackingtableCarBonDataAlarmHighaf3e747511924ac081f2295acd6dcfe200RXiUR:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::CloudWatch::Alarm"
+    DeletionPolicy: "Retain"
+    Properties:
+      ComparisonOperator: "GreaterThanThreshold"
+      Dimensions:
+      - Value:
+          Ref: "DynamoDBTable00CarBonData005PE3a"
+        Name: "TableName"
+      Period: 60
+      EvaluationPeriods: 2
+      Namespace: "AWS/DynamoDB"
+      OKActions: []
+      AlarmActions:
+      - "arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:70f9df8e-f69b-4387-8223-568898d23587:resource/dynamodb/table/CarBon_Data:policyName/$CarBon_Data-scaling-policy:createdBy/62016e79-13f9-4128-adaf-ab7799121b4d"
+      MetricName: "ConsumedWriteCapacityUnits"
+      ActionsEnabled: true
+      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:70f9df8e-f69b-4387-8223-568898d23587:resource/dynamodb/table/CarBon_Data:policyName/$CarBon_Data-scaling-policy:createdBy/62016e79-13f9-4128-adaf-ab7799121b4d."
+      AlarmName: "TargetTracking-table/CarBon_Data-AlarmHigh-af3e7475-1192-4ac0-81f2-295acd6dcfe2"
+      Statistic: "Sum"
+      InsufficientDataActions: []
+      Threshold: 42
+  LogsLogStream0020240226LATEST2f91d31ee6714fdc9052ef6e9e063be100DvENx:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/26/[$LATEST]2f91d31ee6714fdc9052ef6e9e063be1"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020231217LATESTb848aa0e20764920a4cfa04d8aa95e7600x2fty:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2023/12/17/[$LATEST]b848aa0e20764920a4cfa04d8aa95e76"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020240222LATEST972c201099d947fa9a79a2f41e41b6c9005mNCU:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/22/[$LATEST]972c201099d947fa9a79a2f41e41b6c9"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020240227LATEST036b622a8ea042309f4183f72dd93e0d00rhOey:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/27/[$LATEST]036b622a8ea042309f4183f72dd93e0d"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020231218LATEST014e8259811d4a31a97f47ff607c241d00nvjaJ:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2023/12/18/[$LATEST]014e8259811d4a31a97f47ff607c241d"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020240226LATEST9dc509d7b4a64b80a31d3de0243418b30044U1B:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/26/[$LATEST]9dc509d7b4a64b80a31d3de0243418b3"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020240223LATEST7b3906fe280b402cb2f6e73e9843921f00Hhlcp:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/23/[$LATEST]7b3906fe280b402cb2f6e73e9843921f"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogGroup00awslambdacarbon00MC2JO:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogGroup"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogGroupClass: "STANDARD"
+      LogGroupName: "/aws/lambda/car-bon"
+      DataProtectionPolicy: {}
+  LogsLogStream0020240227LATEST140c6777d2174ca5ab9e0e8c1b2fd72400bnS2y:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/27/[$LATEST]140c6777d2174ca5ab9e0e8c1b2fd724"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  LogsLogStream0020231126LATEST23c53a1021b34e8b8de224f0298ab11700qUsD9:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2023/11/26/[$LATEST]23c53a1021b34e8b8de224f0298ab117"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  IAMManagedPolicy00policyAPIgatewayv2fullaccess004jEQV:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::IAM::ManagedPolicy"
+    DeletionPolicy: "Retain"
+    Properties:
+      ManagedPolicyName: "API_gateway_v2_full_access"
+      Path: "/"
+      Description: ""
+      Groups: []
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Resource: "*"
+          Action: "apigateway:*"
+          Effect: "Allow"
+          Sid: "VisualEditor0"
+      Roles: []
+      Users:
+      - "github-actions"
+  LogsLogStream0020240219LATEST510a83d77b8b43dda5114e64c0758bc700GgOJW:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/19/[$LATEST]510a83d77b8b43dda5114e64c0758bc7"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"
+  CloudWatchAlarm00TargetTrackingtableCarBonDataProvisionedCapacityHigh4ca8ba2f21eb4101b62b0365ec14b4c000Bcr6J:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::CloudWatch::Alarm"
+    DeletionPolicy: "Retain"
+    Properties:
+      ComparisonOperator: "GreaterThanThreshold"
+      Dimensions:
+      - Value:
+          Ref: "DynamoDBTable00CarBonData005PE3a"
+        Name: "TableName"
+      Period: 300
+      EvaluationPeriods: 3
+      Namespace: "AWS/DynamoDB"
+      OKActions: []
+      AlarmActions:
+      - "arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:ddb09e11-64f6-4253-ba2f-f5e9b8632e38:resource/dynamodb/table/CarBon_Data:policyName/$CarBon_Data-scaling-policy:createdBy/874d4356-aa6d-471e-bb60-18a6fb28fb38"
+      MetricName: "ProvisionedReadCapacityUnits"
+      ActionsEnabled: true
+      AlarmDescription: "DO NOT EDIT OR DELETE. For TargetTrackingScaling policy arn:aws:autoscaling:us-east-1:956047403479:scalingPolicy:ddb09e11-64f6-4253-ba2f-f5e9b8632e38:resource/dynamodb/table/CarBon_Data:policyName/$CarBon_Data-scaling-policy:createdBy/874d4356-aa6d-471e-bb60-18a6fb28fb38."
+      AlarmName: "TargetTracking-table/CarBon_Data-ProvisionedCapacityHigh-4ca8ba2f-21eb-4101-b62b-0365ec14b4c0"
+      Statistic: "Average"
+      InsufficientDataActions: []
+      Threshold: 1
+  LogsLogStream0020240227LATEST3e953b3d91d84332b282a46c7c333a1300kxx4t:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::Logs::LogStream"
+    DeletionPolicy: "Retain"
+    Properties:
+      LogStreamName: "2024/02/27/[$LATEST]3e953b3d91d84332b282a46c7c333a13"
+      LogGroupName:
+        Ref: "LogsLogGroup00awslambdacarbon00MC2JO"

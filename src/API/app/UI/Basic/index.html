@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.10/index.global.min.js'></script> -->
+    <!-- <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/web-component@6.1.10/index.global.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.10/index.global.min.js'></script> -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="http://kozea.github.com/pygal.js/latest/pygal-tooltips.min.js"
+    ></script>
+    <title>Carbon-Monox</title>
+
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+      }
+
+      /* #chart {
+        width: 1000px;
+        height: auto;
+        align-self: center;
+      } */
+    </style>
+  </head>
+  <body>
+    <!-- <div class="header">
+      <div class="logo">
+        <img src="" alt="" srcset="">
+      </div>
+    </div> -->
+    <div class="container">
+      <div class="controls">
+        <form onsubmit="submitDate(event)">
+          <div class="row">
+            <div class="col-sm-12" align="center">
+              <label for="start_date">Start Date</label>
+              <input id="start_date" type="datetime-local" name="start_date" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12" align="center">
+              <label for="end_date">End Date</label>
+              <input id="end_date" type="datetime-local" name="end_date" />
+            </div>
+          </div><div class="row">
+            <div class="col-sm-12" align="center">
+              <label for="graph_type">Graph Type</label>
+              <select id="graph_type" type="datetime-local" name="graph_type">
+                <option value="Bar">Bar</option>
+                <option value="Line">Line</option>
+              </select>
+            </div>
+          </div>
+        <div class="row">
+          <div class="col-sm-12" align="center">
+            <label for="device_type">Device Type</label>
+            <select id="device_type" type="datetime-local" name="device_type">
+              <option value="ESP32">ESP 32</option>
+              <option value="Rasp-pi">Raspberry Pi</option>
+            </select>
+          </div>
+        </div>
+          <div class="row">
+            <div class="col-sm-12" align="center">
+              <!-- <label for="submitDate">Submit</label> -->
+              <input type="submit" />
+            </div>
+          </div>
+          </div>
+        </form>
+      </div>
+      <div id="chart"></div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      function get_chart(start_date, end_date, graph_type, device_type) {
+        const myHeaders = new Headers();
+        myHeaders.append("Accept", "application/json");
+
+        const requestOptions = {
+          method: "GET",
+          headers: myHeaders,
+          redirect: "follow",
+        };
+
+        fetch(
+          `/graph/generate?start_date=${start_date}&end_date=${end_date}&graph_type=${graph_type}&device=${device_type}`,
+          requestOptions
+        )
+          .then((response) => response.text())
+          .then((result) => {
+            figure = document.createElement("figure");
+            embed = document.createElement("embed");
+            // embed.setAttribute(
+            //   "src",
+            //   `data:image/svg+xml;base64,${btoa(
+            //     unescape(encodeURIComponent(result))
+            //   )}`
+            // );
+            embed.setAttribute(
+              "src",
+              JSON.parse(result).base64_data
+            );
+            figure.appendChild(embed);
+            chart_container = document.getElementById("chart");
+            chart_container.innerHTML = "";
+            chart_container.appendChild(figure);
+          })
+          .catch((error) => console.error(error));
+      }
+
+      function submitDate(event) {
+        event.preventDefault();
+
+        start_date = event.target["start_date"].value;
+        end_date = event.target["end_date"].value;
+        graph_type = event.target["graph_type"].value;
+        device_type = event.target["device_type"].value;
+
+        get_chart(start_date, end_date, graph_type, device_type);
+      }
+    </script>
+  </body>
+</html>

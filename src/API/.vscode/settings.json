@@ -1,0 +1,17 @@
+{
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.formatting.provider": "none",
+    "sqltools.connections": [
+        {
+            "maxRows": 500,
+            "previewLimit": 50,
+            "driver": "DynamoDB Driver",
+            "name": "Dynamo",
+            "group": "Car-Bon",
+            "region": "us-east-1",
+            "profile": "AdministratorAccess-956047403479"
+        }
+    ]
+}

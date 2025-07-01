@@ -1,0 +1,42 @@
+[tool.poetry]
+name = "car-bon"
+version = "1.6.8"
+description = ""
+authors = ["Gunpreet Singh <techn.o.boozard@gmail.com>"]
+readme = "README.md"
+
+packages = [
+    { include = "app" },
+]
+
+[tool.poetry.scripts]
+carbon = 'app.index:main'
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "^0.104.0"
+boto3 = "^1.28.70"
+mangum = "^0.17.0"
+uvicorn = "^0.24.0.post1"
+python-dateutil = "^2.8.2"
+dash = "^2.14.1"
+pandas = "^2.1.3"
+dash-bootstrap-components = "^1.5.0"
+dash-bootstrap-templates = "^1.1.1"
+dash-daq = "^0.5.0"
+urllib3 = "1.26.18"
+boto3-stubs = {extras = ["essential", "secretsmanager"], version = "^1.34.7"}
+twilio = "^8.11.0"
+setuptools = "^69.0.3"
+python-dotenv = "^1.0.0"
+python-ulid = "^2.2.0"
+python-multipart = "^0.0.6"
+phonenumbers = "^8.13.27"
+pycountry = "^23.12.11"
+pygal = "^3.0.4"
+fastui = "^0.5.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

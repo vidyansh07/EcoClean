@@ -1,0 +1,71 @@
+{
+    "menu_items": [
+        {
+            "groupLabel": "",
+            "menus": [
+                {
+                    "href": "/dashboard",
+                    "active": false,
+                    "label": "Dashboard",
+                    "icon": "LayoutGrid",
+                    "submenus": []
+                }
+            ]
+        },
+        {
+            "groupLabel": "Contents",
+            "menus": [
+                {
+                    "href": "",
+                    "label": "Posts",
+                    "icon": "SquarePen",
+                    "submenus": [
+                        {
+                            "href": "/posts",
+                            "active": false,
+                            "label": "All Posts"
+                        },
+                        {
+                            "href": "/posts/new",
+                            "active": false,
+                            "label": "New Post"
+                        }
+                    ]
+                },
+                {
+                    "href": "/categories",
+                    "active": false,
+                    "label": "Categories",
+                    "icon": "Bookmark",
+                    "submenus": []
+                },
+                {
+                    "href": "/tags",
+                    "active": false,
+                    "label": "Tags",
+                    "icon": "Tag",
+                    "submenus": []
+                }
+            ]
+        },
+        {
+            "groupLabel": "Settings",
+            "menus": [
+                {
+                    "href": "/users",
+                    "active": false,
+                    "label": "Users",
+                    "icon": "Users",
+                    "submenus": []
+                },
+                {
+                    "href": "/account",
+                    "active": false,
+                    "label": "Account",
+                    "icon": "Settings",
+                    "submenus": []
+                }
+            ]
+        }
+    ]
+}

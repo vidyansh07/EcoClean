@@ -1,0 +1,19 @@
+{
+  "name": "car-bon",
+  "version": "1.0.0",
+  "description": "An Application for an IOT Based device which detects Carbon monoxide level in closed cars and notifies the user in order to prevent any asphyxiation in human beings (infants or otherwise) or animals inside the car. This also allows user to remotely operate / release the CO2 by slightly opening the window or other vents inside the car.",
+  "main": "./API/index.js",
+  "scripts": {
+    "serve": "npx serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gunnnu/Car-Bon_UI.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gunnnu/Car-Bon_UI/issues"
+  },
+  "homepage": "https://github.com/gunnnu/Car-Bon_UI#readme"
+}

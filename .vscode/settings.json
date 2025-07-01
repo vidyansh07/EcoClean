@@ -1,0 +1,18 @@
+{
+    "iis.configDir": "",
+    "git.ignoreLimitWarning": true,
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.typeCheckingMode": "off",
+    "cSpell.words": [
+        "NHAI",
+        "phonenumbers",
+        "pycountry",
+        "pydantic",
+        "pygal",
+        "Roboto",
+        "siprec",
+        "subresource",
+        "twiml"
+    ],
+    "python.REPL.enableREPLSmartSend": false
+}
