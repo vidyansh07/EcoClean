@@ -1,3 +1,0 @@
-from typing import Tuple
-
-CRT_SUPPORTED_AUTH_TYPES: Tuple[str, ...] = ...

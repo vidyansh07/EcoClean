@@ -34,7 +34,7 @@ Thank you for considering contributing to Car-Bon! This document provides guidel
 
 ```bash
 # Fork and clone the repository
-git clone https://github.com/YOUR_USERNAME/EcoClean.git
+git clone https://github.com/vidyansh07/EcoClean.git
 cd EcoClean
 
 # Setup API environment

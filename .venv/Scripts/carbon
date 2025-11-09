@@ -1,6 +1,0 @@
-#!D:\workforclient\Car-Bon_UI\.venv\Scripts\python.exe
-import sys
-from app.index import main
-
-if __name__ == '__main__':
-    sys.exit(main())
