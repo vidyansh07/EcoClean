@@ -34,18 +34,40 @@ class dynamo:
         dynamodb (DynamoDBServiceResource): DynamoDB resource instance
         table (Table): Reference to the specific DynamoDB table
     """
-    def __init__(self, table_name) -> None:
+    def __init__(self, table_name: str) -> None:
+        """
+        Initialize DynamoDB service with specified table.
+        
+        Args:
+            table_name (str): Name of the DynamoDB table to interact with
+        """
         self.dynamodb: DynamoDBServiceResource = car_bon_connection.resource("dynamodb")
         self.table: Table = self.dynamodb.Table(table_name)
 
-    def get_tables(self):
+    def get_tables(self) -> List[str]:
+        """
+        Retrieve list of all DynamoDB tables in the account.
+        
+        Returns:
+            List[str]: List of table names
+        """
         response = self.dynamodb.tables.all()
         all_tables = []
         for table in response:
             all_tables.append(table.name)
         return all_tables
 
-    def get_dynamo_data(self, device_id, timestamp):
+    def get_dynamo_data(self, device_id: str, timestamp: int) -> Dict[str, Any]:
+        """
+        Retrieve a single sensor reading from DynamoDB.
+        
+        Args:
+            device_id (str): Unique identifier for the IoT device
+            timestamp (int): Unix timestamp of the reading
+            
+        Returns:
+            Dict[str, Any]: Formatted sensor data including CO PPM calculation
+        """
         response = self.table.get_item(
             Key={"device_id": device_id, "timestamp": timestamp}
         )
@@ -58,11 +80,22 @@ class dynamo:
         }
         return result
 
-    def get_last_Updated_value(self, device_id):
+    def get_last_Updated_value(self, device_id: str) -> Dict[str, Any]:
+        """
+        Get the most recent sensor reading for a specific device.
+        
+        Uses descending timestamp sort to efficiently retrieve latest record.
+        
+        Args:
+            device_id (str): Unique identifier for the IoT device
+            
+        Returns:
+            Dict[str, Any]: Most recent sensor data with calculated CO PPM
+        """
         response = self.table.query(
             KeyConditionExpression=Key("device_id").eq(device_id),
-            ScanIndexForward=False,
-            Limit=1,
+            ScanIndexForward=False,  # Sort descending by timestamp
+            Limit=1,  # Only get the most recent record
         )
         response.pop("ResponseMetadata")
         item = response["Items"][0]
