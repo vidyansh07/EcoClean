@@ -168,13 +168,23 @@ class dynamo:
         ]
         return {"Results": filtered_results, "Metadata": {"count": len(results)}}
 
-    def update_table(self, device_id, Temp, Hum, CO) -> None:
+    def update_table(self, device_id: str, Temp: str, Hum: str, CO: str) -> Dict[str, Any]:
         """
-        Adds an item to the table.
-
-        :param Temp: Temp value
-        :param Hum: Hum value
-        :param CO: CO value
+        Add a new sensor reading to the DynamoDB table.
+        
+        Automatically generates timestamp for the reading.
+        
+        Args:
+            device_id (str): Unique identifier for the IoT device
+            Temp (str): Temperature reading in Celsius
+            Hum (str): Humidity reading in percentage
+            CO (str): Carbon monoxide sensor raw value
+            
+        Returns:
+            Dict[str, Any]: Contains the item and write status
+            
+        Raises:
+            ClientError: If DynamoDB write operation fails
         """
         try:
             new_item = {
@@ -196,6 +206,24 @@ class dynamo:
             )
             raise
     
-    def Calculate_ppm(self, value):
+    def Calculate_ppm(self, value: float) -> float:
+        """
+        Convert raw sensor value to Parts Per Million (PPM).
+        
+        Uses calibration formula specific to MQ-7 CO sensor:
+        PPM = ((((5 - (value/102400)*5.0)/5)/26)*1000)
+        
+        Args:
+            value (float): Raw analog sensor reading (0-1023)
+            
+        Returns:
+            float: Carbon monoxide concentration in PPM
+            
+        Note:
+            This formula assumes:
+            - 5V supply voltage
+            - 10-bit ADC (1024 levels)
+            - MQ-7 sensor characteristics
+        """
         ppm_value = ((((5-(value/(1024*100))*5.0)/5)/26)*1000)
         return ppm_value
