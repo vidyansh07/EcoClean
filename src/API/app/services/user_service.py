@@ -1,14 +1,3 @@
-"""
-User Service Module
-
-This module handles user management operations including user creation,
-retrieval, and contact management for the Car-Bon IoT system.
-
-Author: Vidyansh
-Date: 2025-11-09
-Version: 1.6.8
-"""
-
 from typing import List, Optional
 from ulid import ULID
 from pydantic import BaseModel
@@ -82,12 +71,30 @@ class user_service:
         self, name: str, device_id: str, personal_contact: str, secondary_contacts: List = None
     ) -> user_class:
         """
-        Adds an item to the table.
-
-        :param name: User Name
-        :param device_id: Device Id
-        :param personal_contact: Personal Contact Number
-        :param secondary_contacts (Optional) : List of secondary contacts to notify in case personal contact is not reachable.
+        Create a new user profile in the system.
+        
+        Generates a unique ULID for the user and stores profile in DynamoDB.
+        Automatically includes emergency contact numbers.
+        
+        Args:
+            name: User's full name
+            device_id: IoT device identifier to register
+            personal_contact: Primary phone number (E.164 format recommended)
+            secondary_contacts: Optional list of additional contact numbers
+            
+        Returns:
+            user_class: Created user object with all fields populated
+            
+        Raises:
+            ClientError: If DynamoDB write operation fails
+            
+        Example:
+            >>> user = create_user(
+            ...     "John Doe",
+            ...     "ESP32_001",
+            ...     "+919876543210",
+            ...     ["+919876543211"]
+            ... )
         """
         try:
             new_user = user_class(
@@ -108,7 +115,23 @@ class user_service:
             )
             raise
 
-    def get_user(self, user_id) -> user_class:
+    def get_user(self, user_id: str) -> user_class:
+        """
+        Retrieve user profile by ID.
+        
+        Args:
+            user_id: ULID of the user
+            
+        Returns:
+            user_class: User object with all profile data
+            
+        Raises:
+            IndexError: If user not found
+            ClientError: If DynamoDB query fails
+            
+        Example:
+            >>> user = get_user("01HANV3Y7Z8QZXJW2K3P4M5N6")
+        """
         response = self.table.query(
             KeyConditionExpression=Key("id").eq(user_id),
         )
