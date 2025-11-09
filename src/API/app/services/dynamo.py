@@ -1,3 +1,14 @@
+"""
+DynamoDB Service Module
+
+This module provides a service layer for interacting with AWS DynamoDB.
+It handles all CRUD operations for sensor data storage and retrieval.
+
+Author: Vidyansh
+Date: 2025-11-09
+Version: 1.6.8
+"""
+
 import datetime
 from dateutil import parser
 import boto3
@@ -5,14 +16,24 @@ from mypy_boto3_dynamodb.service_resource import DynamoDBServiceResource, Table
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 from logging import Logger as logger
+from typing import Dict, List, Any
 
-# try:
-#     car_bon_connection = boto3.Session(profile_name="AdministratorAccess-956047403479", region_name="us-east-1")
-# except:
+# Initialize AWS connection
+# Uses default boto3 session for AWS credentials
 car_bon_connection = boto3
 
 
 class dynamo:
+    """
+    DynamoDB Service Class
+    
+    Provides methods for interacting with DynamoDB tables for IoT sensor data.
+    Implements the Repository pattern for data access abstraction.
+    
+    Attributes:
+        dynamodb (DynamoDBServiceResource): DynamoDB resource instance
+        table (Table): Reference to the specific DynamoDB table
+    """
     def __init__(self, table_name) -> None:
         self.dynamodb: DynamoDBServiceResource = car_bon_connection.resource("dynamodb")
         self.table: Table = self.dynamodb.Table(table_name)
