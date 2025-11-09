@@ -39,6 +39,19 @@ class emergency_contacts(BaseModel):
 
 
 class user_class(BaseModel):
+    """
+    User data model with Pydantic validation.
+    
+    Uses ULID for unique, sortable identifiers.
+    
+    Attributes:
+        id: Universally Unique Lexicographically Sortable Identifier
+        name: User's full name
+        registered_device_id: IoT device identifier associated with user
+        personal_contact: Primary phone number in E.164 format
+        secondary_contacts: Optional list of additional contact numbers
+        emergency_contacts: Dictionary of emergency service numbers
+    """
     id: str = str(ULID())
     name: str
     registered_device_id: str
@@ -51,7 +64,16 @@ class user_class(BaseModel):
 
 
 class user_service:
+    """
+    User Service for managing user profiles and device registrations.
+    
+    Implements the Repository pattern for user data access.
+    """
+    
     def __init__(self) -> None:
+        """
+        Initialize user service with DynamoDB connection.
+        """
         table_name = "user_table"
         self.dynamodb: DynamoDBServiceResource = CAR_BON_CONNECTION.resource("dynamodb")
         self.table: Table = self.dynamodb.Table(table_name)
