@@ -109,20 +109,36 @@ class dynamo:
 
     def get_data_between_timestamps(
         self, device_id: str, from_timestamp: str, to_timestamp: str
-    ):
-        # try:
-        #     from_timestamp = str(datetime.datetime.fromtimestamp(int(from_timestamp) / 1e3).timestamp())
-        #     to_timestamp = str(datetime.datetime.fromtimestamp(int(to_timestamp) / 1e3).timestamp())
-        # except Exception as e:
-        #     print(e)
+    ) -> Dict[str, Any]:
+        """
+        Query sensor readings within a specified time range.
+        
+        This method supports flexible timestamp formats and filters out zero CO readings.
+        
+        Args:
+            device_id (str): Unique identifier for the IoT device
+            from_timestamp (str): Start timestamp (Unix or ISO 8601 format)
+            to_timestamp (str): End timestamp (Unix or ISO 8601 format)
+            
+        Returns:
+            Dict[str, Any]: Dictionary containing:
+                - Results: List of sensor readings
+                - Metadata: Count of total results
+                
+        Raises:
+            ClientError: If DynamoDB query fails
+        """
+        # Try to parse timestamps if they're in ISO 8601 format
         try:
             from_timestamp = str(parser.parse(from_timestamp).timestamp())
             to_timestamp = str(parser.parse(to_timestamp).timestamp())
             print(f"From Timestamp : {from_timestamp}, To Timestamp : {to_timestamp}")
         except Exception as e:
             print(f"Failed to parse due to following exception:\n{e}")
+            # Use timestamps as-is if parsing fails
             from_timestamp = from_timestamp
             to_timestamp = to_timestamp
+        
         try:
             response = self.table.query(
                 KeyConditionExpression=Key("device_id").eq(device_id)
@@ -135,6 +151,8 @@ class dynamo:
                 err.response["Error"]["Message"],
             )
             raise
+        
+        # Transform DynamoDB items to application format
         results = [
             {
                 "device_id": item["device_id"],
@@ -143,6 +161,8 @@ class dynamo:
             }
             for item in response["Items"]
         ]
+        
+        # Filter out invalid readings (CO = 0 typically indicates sensor error)
         filtered_results = [
             item for item in results if item["sensor_values"]["CO"] != 0
         ]
