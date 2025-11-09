@@ -1,3 +1,14 @@
+"""
+User Service Module
+
+This module handles user management operations including user creation,
+retrieval, and contact management for the Car-Bon IoT system.
+
+Author: Vidyansh
+Date: 2025-11-09
+Version: 1.6.8
+"""
+
 from typing import List, Optional
 from ulid import ULID
 from pydantic import BaseModel
@@ -7,17 +18,24 @@ from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 from logging import Logger as logger
 
+# AWS connection instance
 CAR_BON_CONNECTION = boto3
 
 
 class emergency_contacts(BaseModel):
-    primary_sos: str = "100"
-    primary_fire: str = "101"
-    primary_health: str = "102"
-    secondary_health: str = "108"
-    primary_NHH: str = "1033"
-    primary_DM: str = "1078"
-    primary_NHAI: str = "1800-11-6062"
+    """
+    Emergency contact numbers model.
+    
+    Contains standard emergency service numbers for India.
+    Can be customized based on user's country.
+    """
+    primary_sos: str = "100"  # Police
+    primary_fire: str = "101"  # Fire
+    primary_health: str = "102"  # Ambulance
+    secondary_health: str = "108"  # Emergency Ambulance
+    primary_NHH: str = "1033"  # National Highway Helpline
+    primary_DM: str = "1078"  # Disaster Management
+    primary_NHAI: str = "1800-11-6062"  # National Highway Authority
 
 
 class user_class(BaseModel):
